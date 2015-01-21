@@ -11,9 +11,7 @@ package proj_d_swing;
  */
 public class End extends GameObject {
 
-    public End(Box box) {
-        super(box);
-    }
+   
 
     @Override
     public ObjectType getType() {

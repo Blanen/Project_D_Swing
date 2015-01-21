@@ -13,46 +13,52 @@ import java.util.Map;
  * @author Bart
  */
 public class Box {
-    
+
     GameObject gameObject;
     int x, y;
-    
+
     Map<Direction, Box> boxMap = new EnumMap<>(Direction.class);
-    
-    public Box(int x, int y){
+
+    public Box(int x, int y) {
         this.x = x;
         this.y = y;
     }
-    
-    public void addObject(GameObject go){
+
+    public void addObject(GameObject go) {
         gameObject = go;
         gameObject.setBox(this);
     }
-    
-    public void removeObject(){
+
+    public void removeObject() {
         gameObject = null;
     }
-    
-    public void addNeighboor(Direction d, Box b){
+
+    public void addNeighboor(Direction d, Box b) {
         boxMap.put(d, b);
     }
-    
-    public Box getNeighboor(Direction d){
+
+    public Box getNeighboor(Direction d) {
         return boxMap.get(d);
     }
-    
-    public GameObject getObject(){
+
+    public GameObject getObject() {
         return gameObject;
     }
-    
-    public void moveObject(Direction d){
-        if(getNeighboor(d)!= null){
-            if(getNeighboor(d).getObject().getType()!=ObjectType.Wall){
+
+    public void moveObject(Direction d) {
+        if (getNeighboor(d) != null) {
+
+            if (boxMap.get(d).getObject() == null || boxMap.get(d).getObject().getType() != ObjectType.Wall) {
+                getNeighboor(d).addObject(gameObject);
+                removeObject();
+
+            } else if (boxMap.get(d).getObject().getType() != ObjectType.Wall) {
                 gameObject.interactWith(getNeighboor(d).getObject());
                 getNeighboor(d).addObject(gameObject);
                 removeObject();
             }
+
         }
     }
-    
+
 }

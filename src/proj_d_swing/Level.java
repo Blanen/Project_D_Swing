@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 
 /**
  *
@@ -30,75 +31,70 @@ public class Level extends javax.swing.JPanel {
     BufferedImage helperImage;
     BufferedImage endImage;
     BufferedImage weaponImage;
-    
-    int height = 0;
+    int lvl;
+    Player player;
+
     Box[][] boxArray = new Box[20][20];
 
-    public Level() {
-        setFocusable(true);
-        requestFocus();
-        loadImages();
-        this.setMaximumSize(new Dimension(400, 400));
-        setVisible(true);
-        setBackground(Color.red);
-        setBounds(0, 50, 400, 400);
-        
+    public Level(int lvl) {
 
+        setFocusable(true);
+        this.requestFocusInWindow();
+
+        this.setMaximumSize(new Dimension(400, 400));
+        player = new Player();
         initboxArray();
 
-        //LevelButton lButton = new LevelButton(1, this)
-    }
+        //panel.setLayout(null);
+        this.setVisible(true);
+        setBackground(Color.black);
+        loadImages();
+        Keypressed();
 
-    public void setLevel(int level) {
+        requestFocus();
 
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
-        for(int i = 0; i<boxArray.length;i++){
-            for(int j=0; j<boxArray[0].length;j++){
-                if(boxArray[i][j].getObject().getType()==ObjectType.Player){
-                    
-                   Player player = (Player)boxArray[i][j].getObject();
-                   if(player.getLastDir()==Direction.Down){
-                       g.drawImage(playerDownImage, i*20, j*20, null);
-                   }
-                   else if(player.getLastDir()==Direction.Left){
-                       g.drawImage(playerLeftImage, i*20, j*20, null);
-                   }
-                   else if(player.getLastDir()==Direction.Up){
-                       g.drawImage(playerUpImage, i*20, j*20, null);
-                   }
-                   else if(player.getLastDir()==Direction.Right){
-                       g.drawImage(playerRightImage, i*20, j*20, null);
-                   }
-                    
-                }
-                else if(boxArray[i][j].getObject().getType()==ObjectType.Wall){
-                    
-                    g.drawImage(wallImage, i*20, j*20, null);
-                    
-                }
-                else if(boxArray[i][j].getObject().getType()==ObjectType.End){
-                    
-                    g.drawImage(endImage, i*20, j*20, null);
-                    
-                }
-                else if(boxArray[i][j].getObject().getType()==ObjectType.Weapon){
-                    
-                    //g.drawImage(Image, i*20, j*20, null);
-                    
-                }
-                else if(boxArray[i][j].getObject().getType()==ObjectType.Helper){
-                    
-                    g.drawImage(helperImage, i*20, j*20, null);
-                    
+        System.out.println("PAINT");
+
+        for (int i = 0; i < boxArray.length; i++) {
+            for (int j = 0; j < boxArray[0].length; j++) {
+                if (boxArray[i][j].getObject() != null) {
+                    if (boxArray[i][j].getObject().getType() == ObjectType.Player) {
+
+                        Player player1 = (Player) boxArray[i][j].getObject();
+                        if (player1.getLastDir() == Direction.Down) {
+                            g.drawImage(playerDownImage, i * 20, j * 20, null);
+                        } else if (player1.getLastDir() == Direction.Left) {
+                            g.drawImage(playerLeftImage, i * 20, j * 20, null);
+                        } else if (player1.getLastDir() == Direction.Up) {
+                            g.drawImage(playerUpImage, i * 20, j * 20, null);
+                        } else if (player1.getLastDir() == Direction.Right) {
+                            g.drawImage(playerRightImage, i * 20, j * 20, null);
+                        }
+
+                    } else if (boxArray[i][j].getObject().getType() == ObjectType.Wall) {
+
+                        g.drawImage(wallImage, i * 20, j * 20, null);
+
+                    } else if (boxArray[i][j].getObject().getType() == ObjectType.End) {
+
+                        g.drawImage(endImage, i * 20, j * 20, null);
+
+                    } else if (boxArray[i][j].getObject().getType() == ObjectType.Weapon) {
+
+                        //g.drawImage(Image, i*20, j*20, null);
+                    } else if (boxArray[i][j].getObject().getType() == ObjectType.Helper) {
+
+                        g.drawImage(helperImage, i * 20, j * 20, null);
+
+                    }
                 }
             }
         }
-        
 
     }
 
@@ -108,6 +104,8 @@ public class Level extends javax.swing.JPanel {
                 boxArray1[j] = new Box(boxArray.length, boxArray[0].length);
             }
         }
+
+        boxArray[10][10].addObject(player);
         for (int i = 0; i < boxArray.length; i++) {
             for (int j = 0; j < boxArray[0].length; j++) {
                 if (j > 0) {
@@ -127,7 +125,7 @@ public class Level extends javax.swing.JPanel {
     }
 
     private void loadImages() {
-        
+
         try {
             playerLeftImage = ImageIO.read(new File("Player_Left.png"));
         } catch (IOException e) {
@@ -168,8 +166,60 @@ public class Level extends javax.swing.JPanel {
         } catch (IOException e) {
             System.out.println(e);
         }
-        
-        
+
     }
 
+    public void Keypressed() {
+        this.addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if ((e.getKeyCode() == KeyEvent.VK_UP)) {
+                    System.out.println("woot!");
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if ((e.getKeyCode() == KeyEvent.VK_UP)) {
+                    //System.out.println("woot!");
+                }
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if ((e.getKeyCode() == KeyEvent.VK_UP)) {
+                    System.out.println("UP!");
+                    player.Move(Direction.Up);
+
+                    repaint();
+                }
+                if ((e.getKeyCode() == KeyEvent.VK_RIGHT)) {
+                    System.out.println("RIGHT!");
+                    player.Move(Direction.Right);
+                    repaint();
+                }
+                if ((e.getKeyCode() == KeyEvent.VK_LEFT)) {
+                    System.out.println("LEFT!");
+                    player.Move(Direction.Left);
+                    repaint();
+
+                }
+                if ((e.getKeyCode() == KeyEvent.VK_DOWN)) {
+                    System.out.println("DOWN!");
+                    player.Move(Direction.Down);
+                    repaint();
+
+                }
+                if ((e.getKeyCode() == KeyEvent.VK_SPACE)) {
+                    System.out.println("POW!");
+                    //player.Move(Direction.Space);
+                    repaint();
+                    
+                }
+            }
+
+        });
+    }
 }

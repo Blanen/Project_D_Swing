@@ -11,9 +11,7 @@ package proj_d_swing;
  */
 public class Wall extends GameObject {
 
-    public Wall(Box box) {
-        super(box);
-    }
+
 
     @Override
     public ObjectType getType() {

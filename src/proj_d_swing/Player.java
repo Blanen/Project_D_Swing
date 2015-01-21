@@ -13,9 +13,7 @@ public class Player extends Movable {
     
     Direction lastDir = Direction.Down;
 
-    public Player(Box box) {
-        super(box);
-    }
+
 
     
 

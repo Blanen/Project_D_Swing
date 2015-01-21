@@ -15,9 +15,7 @@ public abstract class GameObject {
     
     Box box;
     
-    public GameObject(Box box){
-        this.box = box;
-    }
+   
     
     public void destroy(){
         this.box.removeObject();

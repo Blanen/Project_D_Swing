@@ -11,9 +11,7 @@ package proj_d_swing;
  */
 public abstract class Movable extends GameObject {
 
-    public Movable(Box box) {
-        super(box);
-    }
+
 
     
     public void Move(Direction d){
