@@ -48,7 +48,7 @@ public class Box {
     public void moveObject(Direction d) {
         if (getNeighboor(d) != null) {
 
-            if (boxMap.get(d).getObject() == null || boxMap.get(d).getObject().getType() != ObjectType.Wall) {
+            if (boxMap.get(d).getObject() == null) {
                 getNeighboor(d).addObject(gameObject);
                 removeObject();
 

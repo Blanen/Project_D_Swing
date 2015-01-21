@@ -47,7 +47,7 @@ public class Level extends javax.swing.JPanel {
         this.requestFocusInWindow();
 
         this.setMaximumSize(new Dimension(400, 400));
-        player = new Player();
+        player = new Player(this);
         initboxArray();
 
         //panel.setLayout(null);
@@ -249,7 +249,28 @@ public class Level extends javax.swing.JPanel {
 
     private void loadLevel() {
         if (lvl == 1) {
-
+            String[][] array = {
+                {"W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"},
+                {"W", "o", "o", "W", "W", "o", "o", "o", "o", "o", "o", "o", "o", "W", "o", "o", "o", "o", "W", "W"},
+                {"W", "o", "W", "W", "W", "o", "W", "W", "W", "W", "W", "W", "o", "W", "W", "o", "W", "o", "W", "W"},
+                {"W", "o", "o", "W", "W", "o", "W", "W", "W", "W", "o", "o", "o", "o", "o", "o", "W", "o", "W", "W"},
+                {"W", "W", "o", "W", "W", "o", "W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "o", "W", "W"},
+                {"W", "o", "o", "W", "W", "o", "W", "W", "W", "W", "W", "o", "W", "o", "W", "W", "W", "o", "W", "W"},
+                {"W", "o", "W", "W", "W", "o", "o", "o", "W", "W", "W", "o", "W", "o", "W", "o", "W", "o", "W", "W"},
+                {"W", "o", "W", "W", "W", "W", "W", "o", "W", "W", "W", "o", "W", "o", "W", "o", "W", "o", "o", "W"},
+                {"W", "o", "o", "o", "o", "o", "o", "o", "o", "o", "W", "o", "o", "o", "o", "o", "W", "W", "o", "W"},
+                {"W", "o", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "W", "W", "o", "W"},
+                {"W", "o", "o", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "o", "o", "o", "W"},
+                {"W", "W", "o", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "o", "W", "W", "W"},
+                {"W", "o", "o", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "o", "o", "W"},
+                {"W", "o", "W", "o", "o", "o", "o", "o", "o", "o", "o", "W", "W", "W", "W", "W", "o", "W", "o", "W"},
+                {"W", "o", "W", "W", "o", "W", "W", "W", "W", "W", "o", "W", "W", "o", "o", "o", "o", "o", "o", "W"},
+                {"W", "o", "W", "W", "o", "o", "W", "o", "W", "W", "o", "W", "W", "W", "o", "W", "W", "W", "W", "W"},
+                {"W", "o", "W", "W", "W", "o", "W", "o", "W", "o", "o", "W", "W", "W", "o", "W", "W", "W", "W", "W"},
+                {"W", "o", "W", "W", "W", "o", "W", "o", "W", "o", "W", "W", "W", "W", "o", "o", "o", "o", "o", "W"},
+                {"W", "o", "o", "o", "o", "o", "W", "o", "o", "o", "W", "W", "W", "W", "W", "W", "W", "W", "P", "E"},
+                {"W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"}};
+             readArray(array);
         } else if (lvl == 2) {
             System.out.println("Level 2!");
             String[][] array = {
@@ -279,6 +300,14 @@ public class Level extends javax.swing.JPanel {
         } else if (lvl == 3) {
 
         }
+    }
+    
+    public void LevelUp(){
+        lvl++;
+        player = new Player(this);
+        initboxArray();
+        loadLevel();
+        
     }
 
     private void readArray(String[][] array) {

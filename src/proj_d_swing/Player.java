@@ -12,8 +12,12 @@ package proj_d_swing;
 public class Player extends Movable {
 
     Direction lastDir = Direction.Down;
-
+    Level level;
     boolean weapon = true;
+
+    public Player(Level level) {
+        this.level = level;
+    }
 
     public void setWeapon() {
         weapon = true;
@@ -21,7 +25,11 @@ public class Player extends Movable {
 
     @Override
     public void interactWith(GameObject go) {
-
+        System.out.println("INTERACT");
+        if (go.getType() == ObjectType.End) {
+            System.out.println("WITH END");
+            level.LevelUp();
+        }
     }
 
     @Override
