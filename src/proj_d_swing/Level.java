@@ -8,6 +8,9 @@ package proj_d_swing;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +23,7 @@ import javax.imageio.ImageIO;
 public class Level extends javax.swing.JPanel {
     
     BufferedImage image;
+    int height = 0;
     
     public Level(){
         this.setMaximumSize(new Dimension(400, 400));
@@ -33,6 +37,25 @@ public class Level extends javax.swing.JPanel {
             System.out.println(e);
         }
         
+        addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                height+= 50;
+                repaint();
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        
         //LevelButton lButton = new LevelButton(1, this)
     }
     
@@ -43,7 +66,12 @@ public class Level extends javax.swing.JPanel {
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        g.drawImage(image, 0, 50, null);
+        g.drawImage(image, height, 50, null);
+        
     }
+
+    
+    
+    
     
 }
