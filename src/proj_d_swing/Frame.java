@@ -16,10 +16,11 @@ import javax.swing.WindowConstants;
  */
 public class Frame extends JFrame {
     
-    JPanel panel;
+    JPanel levelButtonPanel;
     int i;
     Level level;
-    Panel pnl;
+    Panel controlPanel;
+    Counter counter;
     
     public Frame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -28,15 +29,16 @@ public class Frame extends JFrame {
         //level = new Level();
         //add(level);
 
-        panel = new JPanel();
-        panel.setBackground(Color.black);
-        panel.setFocusable(false);
-        add(panel);
+        levelButtonPanel = new JPanel();
+        levelButtonPanel.setBackground(Color.black);
+        levelButtonPanel.setFocusable(false);
+        add(levelButtonPanel);
+        
         this.setResizable(false);
         
         int posy = 95;
         for (i = 1; i < 4; i++) {
-            panel.add(new levelButton(i, this, posy));
+            levelButtonPanel.add(new levelButton(i, this, posy));
             
             posy = posy + 70;
             
@@ -50,13 +52,17 @@ public class Frame extends JFrame {
     }
     
     public void buttonClicked(int lvl) {
-        panel.setVisible(false);
-        level = new Level(lvl);
-        pnl = new Panel(this);
+        levelButtonPanel.setVisible(false);
+        
+        
+        controlPanel = new Panel(this);
+        this.counter=controlPanel.counter;
+        level = new Level(lvl,counter);
         level.setBounds(0, 35, 400, 400);
         //pnl.setBounds(0, 0, 400, 25);
+        
         add(level);
-        add(pnl);
+        add(controlPanel);
         level.requestFocus();
         //level.buttonClicked();
 

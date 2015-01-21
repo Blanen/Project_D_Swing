@@ -34,12 +34,15 @@ public class Level extends javax.swing.JPanel {
     int lvl;
     Player player;
     boolean paused = true;
+    Counter counter;
+    
 
     Box[][] boxArray = new Box[20][20];
 
-    public Level(int lvl) {
+    public Level(int lvl , Counter counter) {
 
         this.lvl = lvl;
+        this.counter= counter;
 
         setFocusable(true);
         this.requestFocusInWindow();
@@ -186,6 +189,8 @@ public class Level extends javax.swing.JPanel {
             public void keyTyped(KeyEvent e) {
                 if ((e.getKeyCode() == KeyEvent.VK_UP)) {
                     System.out.println("woot!");
+                    
+                  
                 }
             }
 
@@ -203,23 +208,28 @@ public class Level extends javax.swing.JPanel {
                     if ((e.getKeyCode() == KeyEvent.VK_UP)) {
                         System.out.println("UP!");
                         player.Move(Direction.Down);
+                        counter.CounterTeller();
 
                         repaint();
                     }
                     if ((e.getKeyCode() == KeyEvent.VK_RIGHT)) {
                         System.out.println("RIGHT!");
                         player.Move(Direction.Right);
+                        counter.CounterTeller();
+                        
                         repaint();
                     }
                     if ((e.getKeyCode() == KeyEvent.VK_LEFT)) {
                         System.out.println("LEFT!");
                         player.Move(Direction.Left);
+                        counter.CounterTeller();
                         repaint();
 
                     }
                     if ((e.getKeyCode() == KeyEvent.VK_DOWN)) {
                         System.out.println("DOWN!");
                         player.Move(Direction.Up);
+                        counter.CounterTeller();
                         repaint();
 
                     }

@@ -32,5 +32,6 @@ public class Panel extends JPanel {
         add(restart);
         add(counter);
         setVisible(true);
+        
     }
 }

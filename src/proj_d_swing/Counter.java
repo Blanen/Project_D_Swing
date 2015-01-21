@@ -18,7 +18,7 @@ public class Counter extends JLabel {
 
     int height = 25;
     int width = 100;
-    String count = "0";
+    int count = 0;
     int posx;
     int posy;
 
@@ -26,7 +26,7 @@ public class Counter extends JLabel {
         this.posx = posx;
         this.posy = posy;
         this.setBounds(posx, posy, width, height);
-        this.setText(count);
+        this.setText(Integer.toString(count));
         setVisible(true);
         System.out.println("counter");
         this.setForeground(Color.white);
@@ -34,4 +34,9 @@ public class Counter extends JLabel {
         
     }
 
+    public void CounterTeller(){
+        count++;
+        setText(Integer.toString(count));
+    
+    }
 }
