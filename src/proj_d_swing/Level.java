@@ -12,38 +12,44 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Bart
  */
 public class Level extends javax.swing.JPanel {
-    
+
     BufferedImage image;
-    
-    public Level(){
+    int i;
+
+    JPanel panel;
+    Frame frame;
+
+    public Level(int lvl) {
+
         this.setMaximumSize(new Dimension(400, 400));
-        setVisible(true);
-        setBackground(Color.red);
-        setBounds(0, 50, 400, 400);
-        try{
+
+        //panel.setLayout(null);
+        this.setVisible(true);
+        setBackground(Color.black);
+
+        try {
             image = ImageIO.read(new File("wall.png"));
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             System.out.println(e);
         }
-        
-        //LevelButton lButton = new LevelButton(1, this)
+
     }
-    
-    public void setLevel(int level){
-        
-    }
-    
+
     @Override
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(image, 0, 50, null);
+        g.drawImage(image, 0, 0, null);
+        g.create();
     }
-    
+
+    /**
+     *
+     */
 }
