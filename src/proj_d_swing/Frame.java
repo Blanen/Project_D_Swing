@@ -23,7 +23,7 @@ public class Frame extends JFrame {
     
     public Frame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(400, 450);
+        setSize(410, 470);
         setVisible(true);
         //level = new Level();
         //add(level);
@@ -52,7 +52,7 @@ public class Frame extends JFrame {
     public void buttonClicked(int lvl) {
         panel.setVisible(false);
         level = new Level(lvl);
-        pnl = new Panel();
+        pnl = new Panel(this);
         level.setBounds(0, 35, 400, 400);
         //pnl.setBounds(0, 0, 400, 25);
         add(level);
@@ -60,5 +60,9 @@ public class Frame extends JFrame {
         level.requestFocus();
         //level.buttonClicked();
 
+    }
+    
+    public void TogglePaused(){
+        level.TogglePaused();
     }
 }

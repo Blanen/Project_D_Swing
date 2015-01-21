@@ -19,11 +19,11 @@ public class Panel extends JPanel {
     RestartButton restart;
     Counter counter;
 
-    public Panel() {
+    public Panel(Frame frame) {
         // this.setMaximumSize(new Dimension(400, 400));
         this.setMinimumSize(new Dimension(400, 25));
         this.setBounds(0, 0, 400, 25);
-        start = new StartButton(0, 0);
+        start = new StartButton(0, 0,frame);
         restart = new RestartButton(150, 0);
         counter = new Counter(300, 0);
         this.setBackground(Color.black);

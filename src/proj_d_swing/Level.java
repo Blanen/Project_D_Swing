@@ -33,6 +33,7 @@ public class Level extends javax.swing.JPanel {
     BufferedImage weaponImage;
     int lvl;
     Player player;
+    boolean paused = true;
 
     Box[][] boxArray = new Box[20][20];
 
@@ -169,7 +170,14 @@ public class Level extends javax.swing.JPanel {
 
     }
 
+    public void TogglePaused() {
+
+        paused = !paused;
+        System.out.println(paused);
+    }
+
     public void Keypressed() {
+
         this.addKeyListener(new KeyListener() {
 
             @Override
@@ -189,34 +197,36 @@ public class Level extends javax.swing.JPanel {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                if ((e.getKeyCode() == KeyEvent.VK_UP)) {
-                    System.out.println("UP!");
-                    player.Move(Direction.Up);
+                if (!paused) {
+                    if ((e.getKeyCode() == KeyEvent.VK_UP)) {
+                        System.out.println("UP!");
+                        player.Move(Direction.Down);
 
-                    repaint();
-                }
-                if ((e.getKeyCode() == KeyEvent.VK_RIGHT)) {
-                    System.out.println("RIGHT!");
-                    player.Move(Direction.Right);
-                    repaint();
-                }
-                if ((e.getKeyCode() == KeyEvent.VK_LEFT)) {
-                    System.out.println("LEFT!");
-                    player.Move(Direction.Left);
-                    repaint();
+                        repaint();
+                    }
+                    if ((e.getKeyCode() == KeyEvent.VK_RIGHT)) {
+                        System.out.println("RIGHT!");
+                        player.Move(Direction.Right);
+                        repaint();
+                    }
+                    if ((e.getKeyCode() == KeyEvent.VK_LEFT)) {
+                        System.out.println("LEFT!");
+                        player.Move(Direction.Left);
+                        repaint();
 
-                }
-                if ((e.getKeyCode() == KeyEvent.VK_DOWN)) {
-                    System.out.println("DOWN!");
-                    player.Move(Direction.Down);
-                    repaint();
+                    }
+                    if ((e.getKeyCode() == KeyEvent.VK_DOWN)) {
+                        System.out.println("DOWN!");
+                        player.Move(Direction.Up);
+                        repaint();
 
-                }
-                if ((e.getKeyCode() == KeyEvent.VK_SPACE)) {
-                    System.out.println("POW!");
-                    //player.Move(Direction.Space);
-                    repaint();
-                    
+                    }
+                    if ((e.getKeyCode() == KeyEvent.VK_SPACE)) {
+                        System.out.println("POW!");
+                        //player.Move(Direction.Space);
+                        repaint();
+
+                    }
                 }
             }
 
