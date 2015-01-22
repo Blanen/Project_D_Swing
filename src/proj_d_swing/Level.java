@@ -38,6 +38,8 @@ public class Level extends javax.swing.JPanel {
 
     public Level(int lvl) {
 
+        this.lvl = lvl;
+
         setFocusable(true);
         this.requestFocusInWindow();
 
@@ -52,6 +54,7 @@ public class Level extends javax.swing.JPanel {
         Keypressed();
 
         requestFocus();
+        loadLevel();
 
     }
 
@@ -105,7 +108,6 @@ public class Level extends javax.swing.JPanel {
             }
         }
 
-        boxArray[10][10].addObject(player);
         for (int i = 0; i < boxArray.length; i++) {
             for (int j = 0; j < boxArray[0].length; j++) {
                 if (j > 0) {
@@ -216,10 +218,60 @@ public class Level extends javax.swing.JPanel {
                     System.out.println("POW!");
                     //player.Move(Direction.Space);
                     repaint();
-                    
+
                 }
             }
 
         });
+    }
+
+    private void loadLevel() {
+        if (lvl == 1) {
+
+        } else if (lvl == 2) {
+            System.out.println("Level 2!");
+            String[][] array = {
+                {"W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"},
+                {"W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "o", "o", "o", "W", "o", "E"},
+                {"W", "W", "o", "o", "o", "o", "o", "o", "o", "o", "o", "W", "W", "o", "o", "o", "o", "W", "o", "W"},
+                {"W", "W", "o", "W", "o", "W", "W", "W", "W", "W", "o", "W", "W", "o", "o", "o", "o", "W", "o", "W"},
+                {"W", "W", "o", "W", "o", "W", "W", "o", "W", "o", "o", "o", "W", "W", "o", "o", "W", "W", "o", "W"},
+                {"W", "W", "o", "W", "o", "W", "W", "o", "W", "o", "W", "o", "W", "W", "W", "o", "o", "o", "o", "W"},
+                {"W", "o", "o", "W", "W", "W", "o", "o", "W", "o", "W", "o", "o", "o", "W", "W", "o", "o", "o", "W"},
+                {"W", "o", "W", "W", "W", "W", "o", "o", "W", "o", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W"},
+                {"W", "o", "o", "o", "o", "o", "o", "o", "W", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "W"},
+                {"W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "W", "o", "o", "W", "W", "W", "W", "W", "W"},
+                {"W", "o", "o", "o", "o", "o", "W", "o", "W", "W", "W", "o", "o", "o", "o", "o", "o", "o", "o", "W"},
+                {"W", "o", "W", "W", "W", "o", "W", "o", "o", "o", "W", "o", "o", "o", "o", "o", "o", "o", "o", "W"},
+                {"W", "o", "W", "W", "o", "o", "W", "W", "W", "o", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W"},
+                {"W", "o", "W", "W", "o", "W", "W", "W", "W", "o", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W"},
+                {"W", "o", "W", "W", "o", "W", "W", "W", "W", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "W"},
+                {"W", "o", "W", "W", "o", "o", "o", "o", "o", "o", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W"},
+                {"W", "o", "W", "W", "W", "o", "W", "W", "W", "o", "W", "W", "W", "W", "W", "W", "o", "W", "o", "W"},
+                {"W", "o", "W", "W", "W", "o", "W", "W", "W", "o", "W", "W", "W", "W", "W", "W", "o", "o", "o", "W"},
+                {"W", "P", "W", "W", "W", "W", "W", "o", "o", "o", "o", "o", "o", "o", "o", "W", "W", "W", "W", "W"},
+                {"W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"}
+            };
+            readArray(array);
+
+        } else if (lvl == 3) {
+
+        }
+    }
+
+    private void readArray(String[][] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length; j++) {
+                if (array[i][j].equals("W")) {
+                    boxArray[array.length - 1 - i][j].addObject(new Wall());
+                }
+                if (array[i][j].equals("E")) {
+                    boxArray[array.length - 1 - i][j].addObject(new End());
+                }
+                if (array[i][j].equals("P")) {
+                    boxArray[array.length - 1 - i][j].addObject(player);
+                }
+            }
+        }
     }
 }
