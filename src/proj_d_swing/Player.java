@@ -10,6 +10,8 @@ package proj_d_swing;
  * @author Bart
  */
 public class Player extends Movable {
+    
+    Direction lastDir = Direction.Down;
 
     public Player(Box box) {
         super(box);
@@ -25,6 +27,10 @@ public class Player extends Movable {
     @Override
     public ObjectType getType() {
         return ObjectType.Player;
+    }
+    
+    public Direction getLastDir(){
+        return lastDir;
     }
 
     

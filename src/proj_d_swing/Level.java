@@ -29,11 +29,14 @@ public class Level extends javax.swing.JPanel {
     BufferedImage playerDownImage;
     BufferedImage helperImage;
     BufferedImage endImage;
+    BufferedImage weaponImage;
     
     int height = 0;
     Box[][] boxArray = new Box[20][20];
 
     public Level() {
+        setFocusable(true);
+        requestFocus();
         loadImages();
         this.setMaximumSize(new Dimension(400, 400));
         setVisible(true);
@@ -53,6 +56,48 @@ public class Level extends javax.swing.JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        
+        for(int i = 0; i<boxArray.length;i++){
+            for(int j=0; j<boxArray[0].length;j++){
+                if(boxArray[i][j].getObject().getType()==ObjectType.Player){
+                    
+                   Player player = (Player)boxArray[i][j].getObject();
+                   if(player.getLastDir()==Direction.Down){
+                       g.drawImage(playerDownImage, i*20, j*20, null);
+                   }
+                   else if(player.getLastDir()==Direction.Left){
+                       g.drawImage(playerLeftImage, i*20, j*20, null);
+                   }
+                   else if(player.getLastDir()==Direction.Up){
+                       g.drawImage(playerUpImage, i*20, j*20, null);
+                   }
+                   else if(player.getLastDir()==Direction.Right){
+                       g.drawImage(playerRightImage, i*20, j*20, null);
+                   }
+                    
+                }
+                else if(boxArray[i][j].getObject().getType()==ObjectType.Wall){
+                    
+                    g.drawImage(wallImage, i*20, j*20, null);
+                    
+                }
+                else if(boxArray[i][j].getObject().getType()==ObjectType.End){
+                    
+                    g.drawImage(endImage, i*20, j*20, null);
+                    
+                }
+                else if(boxArray[i][j].getObject().getType()==ObjectType.Weapon){
+                    
+                    //g.drawImage(Image, i*20, j*20, null);
+                    
+                }
+                else if(boxArray[i][j].getObject().getType()==ObjectType.Helper){
+                    
+                    g.drawImage(helperImage, i*20, j*20, null);
+                    
+                }
+            }
+        }
         
 
     }
@@ -115,6 +160,11 @@ public class Level extends javax.swing.JPanel {
         }
         try {
             endImage = ImageIO.read(new File("Circle.png"));
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        try {
+            weaponImage = ImageIO.read(new File("Circle.png"));
         } catch (IOException e) {
             System.out.println(e);
         }
