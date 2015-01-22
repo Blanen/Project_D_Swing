@@ -20,10 +20,6 @@ public abstract class Movable extends GameObject {
         box.moveObject(d);
     }
     
-    public void setBox(Box box){
-        this.box = box;
-    }
-    
     @Override
     public abstract void interactWith(GameObject go);
     
