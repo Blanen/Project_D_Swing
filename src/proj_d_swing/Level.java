@@ -112,13 +112,13 @@ public class Level extends javax.swing.JPanel {
         for (int i = 0; i < boxArray.length; i++) {
             for (int j = 0; j < boxArray[0].length; j++) {
                 if (j > 0) {
-                    boxArray[i][j].addNeighboor(Direction.Down, boxArray[i][j - 1]);
+                    boxArray[i][j].addNeighboor(Direction.Up, boxArray[i][j - 1]);
                 }
                 if (i > 0) {
                     boxArray[i][j].addNeighboor(Direction.Left, boxArray[i - 1][j]);
                 }
                 if (j < boxArray[0].length - 1) {
-                    boxArray[i][j].addNeighboor(Direction.Up, boxArray[i][j + 1]);
+                    boxArray[i][j].addNeighboor(Direction.Down, boxArray[i][j + 1]);
                 }
                 if (i < boxArray.length - 1) {
                     boxArray[i][j].addNeighboor(Direction.Right, boxArray[i + 1][j]);
@@ -202,30 +202,30 @@ public class Level extends javax.swing.JPanel {
                 if (!paused) {
                     if ((e.getKeyCode() == KeyEvent.VK_UP)) {
                         System.out.println("UP!");
-                        player.Move(Direction.Down);
+                        player.inputDirection(Direction.Up);
 
                         repaint();
                     }
                     if ((e.getKeyCode() == KeyEvent.VK_RIGHT)) {
                         System.out.println("RIGHT!");
-                        player.Move(Direction.Right);
+                        player.inputDirection(Direction.Right);
                         repaint();
                     }
                     if ((e.getKeyCode() == KeyEvent.VK_LEFT)) {
                         System.out.println("LEFT!");
-                        player.Move(Direction.Left);
+                        player.inputDirection(Direction.Left);
                         repaint();
 
                     }
                     if ((e.getKeyCode() == KeyEvent.VK_DOWN)) {
                         System.out.println("DOWN!");
-                        player.Move(Direction.Up);
+                        player.inputDirection(Direction.Down);
                         repaint();
 
                     }
                     if ((e.getKeyCode() == KeyEvent.VK_SPACE)) {
                         System.out.println("POW!");
-                        //player.Move(Direction.Space);
+                        player.shoot();
                         repaint();
 
                     }
