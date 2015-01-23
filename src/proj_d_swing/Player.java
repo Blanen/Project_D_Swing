@@ -13,7 +13,7 @@ public class Player extends Movable {
 
     Direction lastDir = Direction.Down;
     Level level;
-    boolean weapon = true;
+    boolean weapon = false;
 
     public Player(Level level) {
         this.level = level;
@@ -30,6 +30,11 @@ public class Player extends Movable {
             System.out.println("WITH END");
             level.LevelUp();
         }
+        
+        if (go.getType() == ObjectType.Weapon) {
+            System.out.println("WITH WEAPON");
+            setWeapon();
+        }
     }
 
     @Override
@@ -45,7 +50,7 @@ public class Player extends Movable {
         if (weapon) {
             if (box.getNeighboor(lastDir) != null) {
                 if (box.getNeighboor(lastDir).getObject() != null) {
-                    if (box.getNeighboor(lastDir).getObject().getType() != ObjectType.End) {
+                    if (box.getNeighboor(lastDir).getObject().getType() == ObjectType.Wall) {
                         box.getNeighboor(lastDir).removeObject();
                     }
                 }

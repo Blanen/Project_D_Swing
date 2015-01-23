@@ -95,7 +95,7 @@ public class Level extends javax.swing.JPanel {
 
                     } else if (boxArray[i][j].getObject().getType() == ObjectType.Weapon) {
 
-                        //g.drawImage(Image, i*20, j*20, null);
+                        g.drawImage(weaponImage, i*20, j*20, null);
                     } else if (boxArray[i][j].getObject().getType() == ObjectType.Helper) {
 
                         g.drawImage(helperImage, i * 20, j * 20, null);
@@ -170,7 +170,7 @@ public class Level extends javax.swing.JPanel {
             System.out.println(e);
         }
         try {
-            weaponImage = ImageIO.read(new File("Circle.png"));
+            weaponImage = ImageIO.read(new File("Weap.png"));
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -254,14 +254,14 @@ public class Level extends javax.swing.JPanel {
         if (lvl == 1) {
             String[][] array = {
                 {"W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"},
-                {"W", "o", "o", "W", "W", "o", "o", "o", "o", "o", "o", "o", "o", "W", "o", "o", "o", "o", "W", "W"},
+                {"W", "P", "o", "W", "W", "o", "o", "o", "o", "o", "o", "o", "o", "W", "o", "o", "o", "o", "W", "W"},
                 {"W", "o", "W", "W", "W", "o", "W", "W", "W", "W", "W", "W", "o", "W", "W", "o", "W", "o", "W", "W"},
                 {"W", "o", "o", "W", "W", "o", "W", "W", "W", "W", "o", "o", "o", "o", "o", "o", "W", "o", "W", "W"},
                 {"W", "W", "o", "W", "W", "o", "W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "o", "W", "W"},
                 {"W", "o", "o", "W", "W", "o", "W", "W", "W", "W", "W", "o", "W", "o", "W", "W", "W", "o", "W", "W"},
                 {"W", "o", "W", "W", "W", "o", "o", "o", "W", "W", "W", "o", "W", "o", "W", "o", "W", "o", "W", "W"},
                 {"W", "o", "W", "W", "W", "W", "W", "o", "W", "W", "W", "o", "W", "o", "W", "o", "W", "o", "o", "W"},
-                {"W", "o", "o", "o", "o", "o", "o", "o", "o", "o", "W", "o", "o", "o", "o", "o", "W", "W", "o", "W"},
+                {"W", "o", "o", "o", "o", "o", "o", "o", "o", "B", "W", "o", "o", "o", "o", "o", "W", "W", "o", "W"},
                 {"W", "o", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "W", "W", "o", "W"},
                 {"W", "o", "o", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "o", "o", "o", "W"},
                 {"W", "W", "o", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "o", "W", "W", "W"},
@@ -271,7 +271,7 @@ public class Level extends javax.swing.JPanel {
                 {"W", "o", "W", "W", "o", "o", "W", "o", "W", "W", "o", "W", "W", "W", "o", "W", "W", "W", "W", "W"},
                 {"W", "o", "W", "W", "W", "o", "W", "o", "W", "o", "o", "W", "W", "W", "o", "W", "W", "W", "W", "W"},
                 {"W", "o", "W", "W", "W", "o", "W", "o", "W", "o", "W", "W", "W", "W", "o", "o", "o", "o", "o", "W"},
-                {"W", "o", "o", "o", "o", "o", "W", "o", "o", "o", "W", "W", "W", "W", "W", "W", "W", "W", "P", "E"},
+                {"W", "o", "o", "o", "o", "o", "W", "o", "o", "o", "W", "W", "W", "W", "W", "W", "W", "W", "o", "E"},
                 {"W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"}};
             readArray(array);
         } else if (lvl == 2) {
@@ -295,7 +295,7 @@ public class Level extends javax.swing.JPanel {
                 {"W", "o", "W", "W", "o", "o", "o", "o", "o", "o", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W"},
                 {"W", "o", "W", "W", "W", "o", "W", "W", "W", "o", "W", "W", "W", "W", "W", "W", "o", "W", "o", "W"},
                 {"W", "o", "W", "W", "W", "o", "W", "W", "W", "o", "W", "W", "W", "W", "W", "W", "o", "o", "o", "W"},
-                {"W", "P", "W", "W", "W", "W", "W", "o", "o", "o", "o", "o", "o", "o", "o", "W", "W", "W", "W", "W"},
+                {"W", "P", "W", "W", "W", "W", "W", "o", "o", "B", "o", "o", "o", "o", "o", "W", "W", "W", "W", "W"},
                 {"W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"}
             };
             readArray(array);
@@ -324,6 +324,9 @@ public class Level extends javax.swing.JPanel {
                 }
                 if (array[i][j].equals("P")) {
                     boxArray[array.length - 1 - i][j].addObject(player);
+                }
+                if (array[i][j].equals("B")) {
+                    boxArray[array.length - 1 - i][j].addObject(new Weapon());
                 }
             }
         }
