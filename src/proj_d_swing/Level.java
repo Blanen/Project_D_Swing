@@ -14,6 +14,9 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -270,7 +273,7 @@ public class Level extends javax.swing.JPanel {
                 {"W", "o", "W", "W", "W", "o", "W", "o", "W", "o", "W", "W", "W", "W", "o", "o", "o", "o", "o", "W"},
                 {"W", "o", "o", "o", "o", "o", "W", "o", "o", "o", "W", "W", "W", "W", "W", "W", "W", "W", "P", "E"},
                 {"W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"}};
-             readArray(array);
+            readArray(array);
         } else if (lvl == 2) {
             System.out.println("Level 2!");
             String[][] array = {
@@ -299,15 +302,15 @@ public class Level extends javax.swing.JPanel {
 
         } else if (lvl == 3) {
 
+            boxArray[10][10].addObject(player);
+
         }
     }
-    
-    public void LevelUp(){
+
+    public void LevelUp() {
         lvl++;
-        player = new Player(this);
-        initboxArray();
-        loadLevel();
-        
+        restart();
+
     }
 
     private void readArray(String[][] array) {
@@ -325,4 +328,101 @@ public class Level extends javax.swing.JPanel {
             }
         }
     }
+
+    public void shortestPath() {
+        ArrayList<Box> Unvisited = new ArrayList<>();
+        for (int i = 0; i < boxArray.length; i++) {
+            for (int j = 0; i < boxArray[0].length; j++) {
+                boxArray[i][j].distance = 0;
+                Unvisited.add(boxArray[i][j]);
+            }
+        }
+        Box currentBox = player.getBox();
+        currentBox.distance = Integer.MAX_VALUE;
+        while (true) {
+
+        }
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void restart() {
+        player = new Player(this);
+        initboxArray();
+        loadLevel();
+        repaint();
+        counter.reset();
+    }
+
+    public void pathFind() {
+        ArrayList<Box> unvisitedList = new ArrayList<>();
+        ArrayList<Box> visitedList = new ArrayList<>();
+
+        int distanceto = Integer.MAX_VALUE;
+        for (int i = 0; i < boxArray.length; i++) {
+            for (int j = 0; j < boxArray[0].length; j++) {
+                if (boxArray[i][j].getObject() == null) {
+                    boxArray[i][j].distance = Integer.MAX_VALUE;
+                    //unvisitedList.add(boxArray[i][j]);
+
+                }
+            }
+
+        }
+
+        Box sourceBox = player.getBox();
+        sourceBox.distance = 0;
+        unvisitedList.add(sourceBox);
+
+        while (!unvisitedList.isEmpty()) {
+
+            Box currentBox = getBoxWithLowestDistance(unvisitedList);
+
+            unvisitedList.remove(currentBox);
+            visitedList.add(currentBox);
+
+            evaluateNeighbors(currentBox, visitedList, unvisitedList);
+
+        }
+        
+    }
+
+    public Box getBoxWithLowestDistance(ArrayList<Box> boxList) {
+
+        int distance = Integer.MAX_VALUE;
+
+        Box returnBox = null;
+
+        for (Box box : boxList) {
+
+            if (box.distance < distance) {
+                returnBox = box;
+
+            }
+
+        }
+
+        return returnBox;
+
+    }
+
+    private void evaluateNeighbors(Box box, ArrayList<Box> visitedList, ArrayList<Box> unvisitedList) {
+        for (Map.Entry<Direction, Box> destinationEntry : box.getBoxMap().entrySet()) {
+            if (destinationEntry.getValue() != null) {
+
+                if (destinationEntry.getValue().getObject() == null) {
+
+                    int edgeDistance = 1;
+                    int newDistance = box.distance + edgeDistance;
+                    if (destinationEntry.getValue().distance > newDistance) {
+                        destinationEntry.getValue().distance = newDistance;
+                        unvisitedList.add(destinationEntry.getValue());
+                    }
+                }
+            }
+        }
+    }
+
 }

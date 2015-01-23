@@ -71,4 +71,8 @@ public class Frame extends JFrame {
     public void TogglePaused(){
         level.TogglePaused();
     }
+    
+    public void restart(){
+        level.restart();
+    }
 }

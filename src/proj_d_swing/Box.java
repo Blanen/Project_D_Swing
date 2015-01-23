@@ -13,6 +13,9 @@ import java.util.Map;
  * @author Bart
  */
 public class Box {
+    
+    
+    int distance = 0;
 
     GameObject gameObject;
     int x, y;
@@ -59,6 +62,12 @@ public class Box {
             }
 
         }
+    }
+    
+    public Map<Direction, Box> getBoxMap(){
+        
+        return boxMap;
+        
     }
 
 }

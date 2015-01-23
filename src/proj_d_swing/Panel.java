@@ -24,7 +24,7 @@ public class Panel extends JPanel {
         this.setMinimumSize(new Dimension(400, 25));
         this.setBounds(0, 0, 400, 25);
         start = new StartButton(0, 0,frame);
-        restart = new RestartButton(150, 0);
+        restart = new RestartButton(150, 0, frame);
         counter = new Counter(300, 0);
         this.setBackground(Color.black);
 

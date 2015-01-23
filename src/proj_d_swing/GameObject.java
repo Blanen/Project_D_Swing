@@ -24,5 +24,9 @@ public abstract class GameObject {
         this.box = box;
     }
     
+    public Box getBox(){
+        return box;
+    }
+    
     public abstract void interactWith(GameObject go);
 }

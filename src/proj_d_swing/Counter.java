@@ -39,4 +39,9 @@ public class Counter extends JLabel {
         setText(Integer.toString(count));
     
     }
+    
+    public void reset(){
+        count = 0;
+        setText(Integer.toString(count));
+    }
 }
