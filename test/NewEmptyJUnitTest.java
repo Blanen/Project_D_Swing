@@ -42,7 +42,7 @@ public class NewEmptyJUnitTest {
     public void Paused(){
         Frame frame = new Frame();
         frame.TogglePaused();
-        assert.assertTrue();
+        //  assert.assertTrue();
         
         
     }

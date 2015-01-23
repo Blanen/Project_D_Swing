@@ -13,9 +13,9 @@ import java.util.Map;
  * @author Bart
  */
 public class Box {
-    
-    
+
     int distance = 0;
+    Boolean visible = true;
 
     GameObject gameObject;
     int x, y;
@@ -30,6 +30,13 @@ public class Box {
     public void addObject(GameObject go) {
         gameObject = go;
         gameObject.setBox(this);
+        if (go.getType() == ObjectType.Player) {
+            setVisible(true);
+            for (Map.Entry<Direction, Box> boxEntry : boxMap.entrySet()) {
+                boxEntry.getValue().setVisible(true);
+            }
+
+        }
     }
 
     public void removeObject() {
@@ -63,11 +70,19 @@ public class Box {
 
         }
     }
-    
-    public Map<Direction, Box> getBoxMap(){
-        
+
+    public Map<Direction, Box> getBoxMap() {
+
         return boxMap;
-        
+
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
+    
+    public Boolean getVisible(){
+        return visible;
     }
 
 }

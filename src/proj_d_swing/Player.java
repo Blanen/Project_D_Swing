@@ -35,6 +35,9 @@ public class Player extends Movable {
             System.out.println("WITH WEAPON");
             setWeapon();
         }
+        if(go.getType() == ObjectType.Enemy){
+            level.restart();
+        }
     }
 
     @Override

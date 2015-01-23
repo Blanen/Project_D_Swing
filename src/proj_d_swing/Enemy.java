@@ -9,12 +9,16 @@ package proj_d_swing;
  *
  * @author Bart
  */
-public enum ObjectType {
-    Wall,
-    Player,
-    Helper,
-    Weapon,
-    End,
-    Enemy
+public class Enemy extends Movable{
+
+    @Override
+    public void interactWith(GameObject go) {
+        
+    }
+
+    @Override
+    public ObjectType getType() {
+        return ObjectType.Enemy;
+    }
     
 }

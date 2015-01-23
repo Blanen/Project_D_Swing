@@ -34,6 +34,7 @@ public class Level extends javax.swing.JPanel {
     BufferedImage helperImage;
     BufferedImage endImage;
     BufferedImage weaponImage;
+    BufferedImage enemyImage;
     int lvl;
     Player player;
     boolean paused = true;
@@ -72,34 +73,40 @@ public class Level extends javax.swing.JPanel {
         for (int i = 0; i < boxArray.length; i++) {
             for (int j = 0; j < boxArray[0].length; j++) {
                 if (boxArray[i][j].getObject() != null) {
-                    if (boxArray[i][j].getObject().getType() == ObjectType.Player) {
+                    if (boxArray[i][j].getVisible()) {
+                        if (boxArray[i][j].getObject().getType() == ObjectType.Player) {
 
-                        Player player1 = (Player) boxArray[i][j].getObject();
-                        if (player1.getLastDir() == Direction.Down) {
-                            g.drawImage(playerDownImage, i * 20, j * 20, null);
-                        } else if (player1.getLastDir() == Direction.Left) {
-                            g.drawImage(playerLeftImage, i * 20, j * 20, null);
-                        } else if (player1.getLastDir() == Direction.Up) {
-                            g.drawImage(playerUpImage, i * 20, j * 20, null);
-                        } else if (player1.getLastDir() == Direction.Right) {
-                            g.drawImage(playerRightImage, i * 20, j * 20, null);
+                            Player player1 = (Player) boxArray[i][j].getObject();
+                            if (player1.getLastDir() == Direction.Down) {
+                                g.drawImage(playerDownImage, i * 20, j * 20, null);
+                            } else if (player1.getLastDir() == Direction.Left) {
+                                g.drawImage(playerLeftImage, i * 20, j * 20, null);
+                            } else if (player1.getLastDir() == Direction.Up) {
+                                g.drawImage(playerUpImage, i * 20, j * 20, null);
+                            } else if (player1.getLastDir() == Direction.Right) {
+                                g.drawImage(playerRightImage, i * 20, j * 20, null);
+                            }
+
+                        } else if (boxArray[i][j].getObject().getType() == ObjectType.Wall) {
+
+                            g.drawImage(wallImage, i * 20, j * 20, null);
+
+                        } else if (boxArray[i][j].getObject().getType() == ObjectType.End) {
+
+                            g.drawImage(endImage, i * 20, j * 20, null);
+
+                        } else if (boxArray[i][j].getObject().getType() == ObjectType.Weapon) {
+
+                            g.drawImage(weaponImage, i * 20, j * 20, null);
+                        } else if (boxArray[i][j].getObject().getType() == ObjectType.Helper) {
+
+                            g.drawImage(helperImage, i * 20, j * 20, null);
+
+                        } else if (boxArray[i][j].getObject().getType() == ObjectType.Enemy) {
+
+                            g.drawImage(enemyImage, i * 20, j * 20, null);
+
                         }
-
-                    } else if (boxArray[i][j].getObject().getType() == ObjectType.Wall) {
-
-                        g.drawImage(wallImage, i * 20, j * 20, null);
-
-                    } else if (boxArray[i][j].getObject().getType() == ObjectType.End) {
-
-                        g.drawImage(endImage, i * 20, j * 20, null);
-
-                    } else if (boxArray[i][j].getObject().getType() == ObjectType.Weapon) {
-
-                        g.drawImage(weaponImage, i*20, j*20, null);
-                    } else if (boxArray[i][j].getObject().getType() == ObjectType.Helper) {
-
-                        g.drawImage(helperImage, i * 20, j * 20, null);
-
                     }
                 }
             }
@@ -171,6 +178,11 @@ public class Level extends javax.swing.JPanel {
         }
         try {
             weaponImage = ImageIO.read(new File("Weap.png"));
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        try {
+            enemyImage = ImageIO.read(new File("Enemy.png"));
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -261,7 +273,7 @@ public class Level extends javax.swing.JPanel {
                 {"W", "o", "o", "W", "W", "o", "W", "W", "W", "W", "W", "o", "W", "o", "W", "W", "W", "o", "W", "W"},
                 {"W", "o", "W", "W", "W", "o", "o", "o", "W", "W", "W", "o", "W", "o", "W", "o", "W", "o", "W", "W"},
                 {"W", "o", "W", "W", "W", "W", "W", "o", "W", "W", "W", "o", "W", "o", "W", "o", "W", "o", "o", "W"},
-                {"W", "o", "o", "o", "o", "o", "o", "o", "o", "B", "W", "o", "o", "o", "o", "o", "W", "W", "o", "W"},
+                {"W", "o", "o", "o", "o", "o", "o", "o", "Y", "B", "W", "o", "o", "o", "o", "o", "W", "W", "o", "W"},
                 {"W", "o", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "W", "W", "o", "W"},
                 {"W", "o", "o", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "o", "o", "o", "W"},
                 {"W", "W", "o", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "o", "W", "W", "W"},
@@ -302,7 +314,35 @@ public class Level extends javax.swing.JPanel {
 
         } else if (lvl == 3) {
 
-            boxArray[10][10].addObject(player);
+            for (int i = 0; i < boxArray.length; i++) {
+                for (int j = 0; j < boxArray[0].length; j++) {
+                    boxArray[i][j].setVisible(false);
+                }
+
+            }
+            String[][] array = {
+                {"W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"},
+                {"W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "o", "o", "o", "W", "o", "E"},
+                {"W", "W", "o", "o", "o", "o", "o", "o", "o", "o", "o", "W", "W", "o", "o", "o", "o", "W", "o", "W"},
+                {"W", "W", "o", "W", "o", "W", "W", "W", "W", "W", "o", "W", "W", "o", "o", "o", "o", "W", "o", "W"},
+                {"W", "W", "o", "W", "o", "W", "W", "o", "W", "o", "o", "o", "W", "W", "o", "o", "W", "W", "o", "W"},
+                {"W", "W", "o", "W", "o", "W", "W", "o", "W", "o", "W", "o", "W", "W", "W", "o", "o", "o", "o", "W"},
+                {"W", "o", "o", "W", "W", "W", "o", "o", "W", "o", "W", "o", "o", "o", "W", "W", "o", "o", "o", "W"},
+                {"W", "o", "W", "W", "W", "W", "o", "o", "W", "o", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W"},
+                {"W", "o", "o", "o", "o", "o", "o", "o", "W", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "W"},
+                {"W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "W", "o", "o", "W", "W", "W", "W", "W", "W"},
+                {"W", "o", "o", "o", "o", "o", "W", "o", "W", "W", "W", "o", "o", "o", "o", "o", "o", "o", "o", "W"},
+                {"W", "o", "W", "W", "W", "o", "W", "o", "o", "o", "W", "o", "o", "o", "o", "o", "o", "o", "o", "W"},
+                {"W", "o", "W", "W", "o", "o", "W", "W", "W", "o", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W"},
+                {"W", "o", "W", "W", "o", "W", "W", "W", "W", "o", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W"},
+                {"W", "o", "W", "W", "o", "W", "W", "W", "W", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "W"},
+                {"W", "o", "W", "W", "o", "o", "o", "o", "o", "o", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W"},
+                {"W", "o", "W", "W", "W", "o", "W", "W", "W", "o", "W", "W", "W", "W", "W", "W", "o", "W", "o", "W"},
+                {"W", "o", "W", "W", "W", "o", "W", "W", "W", "o", "W", "W", "W", "W", "W", "W", "o", "o", "o", "W"},
+                {"W", "P", "W", "W", "W", "W", "W", "o", "o", "B", "o", "o", "o", "o", "o", "W", "W", "W", "W", "W"},
+                {"W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"}
+            };
+            readArray(array);
 
         }
     }
@@ -327,6 +367,10 @@ public class Level extends javax.swing.JPanel {
                 }
                 if (array[i][j].equals("B")) {
                     boxArray[array.length - 1 - i][j].addObject(new Weapon());
+                }
+
+                if (array[i][j].equals("Y")) {
+                    boxArray[array.length - 1 - i][j].addObject(new Enemy());
                 }
             }
         }
@@ -389,7 +433,7 @@ public class Level extends javax.swing.JPanel {
             evaluateNeighbors(currentBox, visitedList, unvisitedList);
 
         }
-        
+
     }
 
     public Box getBoxWithLowestDistance(ArrayList<Box> boxList) {
