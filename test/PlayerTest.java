@@ -37,27 +37,96 @@ public class PlayerTest {
     }
     
     @Test
-    public void InputTestWall(){
+    public void WalkTest1(){
         Counter counter = new Counter(0, 0);
-        Level level = new Level(3, counter);
+        Level level = new Level(100, counter);
         Player player = level.getPlayer();
+        level.getBoxArray()[10][10].addObject(player);
         Box box = player.getBox();
-        player.getBox().getNeighboor(Direction.Down).addObject(new Wall());
-        player.inputDirection(Direction.Down);
-        assertTrue(box.getObject().equals(player)&& !(box.getNeighboor(Direction.Down).getObject().equals(player)));
+        player.setDirection(Direction.Left);
+        player.inputDirection(Direction.Right);
+        
+        assertEquals(box.getNeighboor(Direction.Left).getObject(), player);
+        assertEquals(player.getLastDir(), Direction.Left);
+        
+        
         
         
         
     }
     
     @Test
-    public void InputTestNoWall(){
+    public void WalkTest2(){
         Counter counter = new Counter(0, 0);
-        Level level = new Level(3, counter);
+        Level level = new Level(100, counter);
         Player player = level.getPlayer();
+        level.getBoxArray()[10][10].addObject(player);
         Box box = player.getBox();
-        player.inputDirection(Direction.Down);
-        assertTrue(box.getObject()==null&& box.getNeighboor(Direction.Down).getObject().equals(player));
+        player.setDirection(Direction.Left);
+        box.getNeighboor(Direction.Left).addObject(new Wall());
+        player.inputDirection(Direction.Left);
+        
+        assertEquals(box, player.getBox());
+        assertEquals(player.getLastDir(), Direction.Left);
+        
+        
+        
+        
+        
+    }
+    @Test
+    public void WalkTest3(){
+        Counter counter = new Counter(0, 0);
+        Level level = new Level(100, counter);
+        Player player = level.getPlayer();
+        level.getBoxArray()[10][10].addObject(player);
+        Box box = player.getBox();
+        player.setDirection(Direction.Right);
+        player.inputDirection(Direction.Left);
+        
+        assertEquals(box, player.getBox());
+        assertEquals(player.getLastDir(), Direction.Left);
+        
+        
+        
+        
+        
+    }
+    @Test
+    public void WalkTest4(){
+        Counter counter = new Counter(0, 0);
+        Level level = new Level(100, counter);
+        Player player = level.getPlayer();
+        level.getBoxArray()[10][10].addObject(player);
+        Box box = player.getBox();
+        player.setDirection(Direction.Left);
+        player.inputDirection(Direction.Right);
+        
+        assertEquals(box, player.getBox());
+        assertEquals(player.getLastDir(), Direction.Right);
+        
+        
+        
+        
+        
+    }
+    
+    @Test
+    public void Shoot(){
+        Counter counter = new Counter(0, 0);
+        Level level = new Level(100, counter);
+        Player player = level.getPlayer();
+        level.getBoxArray()[10][10].addObject(player);
+        Box box = player.getBox();
+        
+        player.setWeapon();
+        
+        box.getNeighboor(Direction.Left).addObject(new Wall());
+        player.setDirection(Direction.Left);
+        player.shoot();
+        
+        assertEquals(box.getNeighboor(Direction.Left).getObject(), null);
+        
     }
 
     // TODO add test methods here.

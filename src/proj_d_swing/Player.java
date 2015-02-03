@@ -30,12 +30,12 @@ public class Player extends Movable {
             System.out.println("WITH END");
             level.LevelUp();
         }
-        
+
         if (go.getType() == ObjectType.Weapon) {
             System.out.println("WITH WEAPON");
             setWeapon();
         }
-        if(go.getType() == ObjectType.Enemy){
+        if (go.getType() == ObjectType.Enemy) {
             level.restart();
         }
     }
@@ -70,4 +70,13 @@ public class Player extends Movable {
         lastDir = d;
     }
 
+    public void setDirection(Direction d) {
+        lastDir = d;
+    }
+
+    public Direction getDirection() {
+        
+        return lastDir;
+
+    }
 }
