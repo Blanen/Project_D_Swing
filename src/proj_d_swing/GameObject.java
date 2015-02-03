@@ -15,7 +15,9 @@ public abstract class GameObject {
     
     Box box;
     
-   
+   public boolean walkable(){
+       return true;
+   }
     
     public void destroy(){
         this.box.removeObject();
@@ -28,5 +30,7 @@ public abstract class GameObject {
         return box;
     }
     
-    public abstract void interactWith(GameObject go);
+    public void interactWith(GameObject go){
+        
+    }
 }

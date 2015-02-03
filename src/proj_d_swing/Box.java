@@ -56,14 +56,14 @@ public class Box {
     }
 
     public void moveObject(Direction d) {
-        if (getNeighboor(d) != null) {
+        if (gameObject.walkable()) {
 
             if (boxMap.get(d).getObject() == null) {
                 getNeighboor(d).addObject(gameObject);
                 removeObject();
 
-            } else if (boxMap.get(d).getObject().getType() != ObjectType.Wall) {
-                gameObject.interactWith(getNeighboor(d).getObject());
+            } else if (boxMap.get(d).getObject().walkable() ) {
+                getNeighboor(d).getObject().interactWith(gameObject);
                 getNeighboor(d).addObject(gameObject);
                 removeObject();
             }

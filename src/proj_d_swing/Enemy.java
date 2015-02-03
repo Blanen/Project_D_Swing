@@ -13,7 +13,8 @@ public class Enemy extends Movable{
 
     @Override
     public void interactWith(GameObject go) {
-        
+         Player player = (Player)go;
+        player.level.restart();
     }
 
     @Override

@@ -16,9 +16,12 @@ public class Weapon extends GameObject{
     public ObjectType getType() {
         return ObjectType.Weapon;
     }
+    
+
 
     @Override
     public void interactWith(GameObject go) {
-        
+        Player player = (Player)go;
+        player.setWeapon();
     }
 }

@@ -20,7 +20,8 @@ public class End extends GameObject {
     
     @Override
     public void interactWith(GameObject go){
-        
+         Player player = (Player)go;
+        player.level.LevelUp();
     }
     
 }

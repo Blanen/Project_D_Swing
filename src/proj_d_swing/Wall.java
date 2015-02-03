@@ -23,4 +23,9 @@ public class Wall extends GameObject {
         
     }
     
+    @Override
+    public boolean walkable(){
+        return false;
+    }
+    
 }

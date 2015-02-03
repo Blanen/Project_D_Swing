@@ -26,18 +26,10 @@ public class Player extends Movable {
     @Override
     public void interactWith(GameObject go) {
         System.out.println("INTERACT");
-        if (go.getType() == ObjectType.End) {
-            System.out.println("WITH END");
-            level.LevelUp();
-        }
+        
 
-        if (go.getType() == ObjectType.Weapon) {
-            System.out.println("WITH WEAPON");
-            setWeapon();
-        }
-        if (go.getType() == ObjectType.Enemy) {
-            level.restart();
-        }
+       
+       
     }
 
     @Override
