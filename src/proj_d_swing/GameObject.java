@@ -10,31 +10,28 @@ package proj_d_swing;
  * @author Bart
  */
 public abstract class GameObject {
-    
+
     public abstract ObjectType getType();
-    
-    public Boolean walkable(){
+
+    Box box;
+
+    public boolean walkable() {
         return true;
     }
-    
-    Box box;
-    
-   public boolean walkable(){
-       return true;
-   }
-    
-    public void destroy(){
+
+    public void destroy() {
         this.box.removeObject();
     }
-    public void setBox(Box box){
+
+    public void setBox(Box box) {
         this.box = box;
     }
-    
-    public Box getBox(){
+
+    public Box getBox() {
         return box;
     }
-    
-    public void interactWith(GameObject go){
-        
+
+    public void interactWith(GameObject go) {
+
     }
 }

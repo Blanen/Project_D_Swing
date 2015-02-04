@@ -62,7 +62,7 @@ public class Box {
                 getNeighboor(d).addObject(gameObject);
                 removeObject();
 
-            } else if (boxMap.get(d).getObject().walkable() ) {
+            } else if (boxMap.get(d).getObject().walkable()) {
                 getNeighboor(d).getObject().interactWith(gameObject);
                 getNeighboor(d).addObject(gameObject);
                 removeObject();
@@ -85,34 +85,36 @@ public class Box {
         return visible;
     }
 
-    public Box lowestDistanceNeighboor() {
+    public Box lowerDistanceNeighboor() {
 
         Box box = null;
 
-        if (distance != 0) {
-            for (Map.Entry<Direction, Box> boxEntry : boxMap.entrySet()) {
-                if (box.equals(null)) {
-                    box = boxEntry.getValue();
-
-                } else {
-                    if (boxEntry.getValue().distance < box.distance) {
-                        box = boxEntry.getValue();
-                    }
-
-                }
+        for (Map.Entry<Direction, Box> boxEntry : boxMap.entrySet()) {
+            if(boxEntry.getValue().distance==this.distance-1){
+                box = boxEntry.getValue();
             }
-        } else {
-
         }
+        
 
         return box;
 
     }
-    
-    public void makePath(){
-        addObject(new PathPoint());
-        if(!lowestDistanceNeighboor().equals(null)){
-            lowestDistanceNeighboor().makePath();
+
+    public void makePath() {
+        System.out.println(distance);
+        if (distance != 0) {
+            lowerDistanceNeighboor().makePath();
+            if (gameObject == null) {
+                addObject(new PathPoint());
+            }
+        }
+    }
+
+    public boolean walkable() {
+        if (gameObject == null) {
+            return true;
+        } else {
+            return gameObject.walkable();
         }
     }
 

@@ -24,7 +24,7 @@ public class Helper extends GameObject {
 
     @Override
     public void interactWith(GameObject go) {
-        level.shortestPath();
+        level.pathFind();
 
     }
 
@@ -33,7 +33,7 @@ public class Helper extends GameObject {
         
         if(endBox!=null){
             
-            endBox.lowestDistanceNeighboor().makePath();
+            endBox.lowerDistanceNeighboor().makePath();
             
         }
         else{

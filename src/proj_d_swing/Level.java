@@ -35,10 +35,12 @@ public class Level extends javax.swing.JPanel {
     BufferedImage endImage;
     BufferedImage weaponImage;
     BufferedImage enemyImage;
+    BufferedImage pathPointImage;
     int lvl;
     Player player;
     boolean paused = true;
     Counter counter;
+    End end;
 
     Box[][] boxArray = new Box[20][20];
 
@@ -52,6 +54,7 @@ public class Level extends javax.swing.JPanel {
 
         this.setMaximumSize(new Dimension(400, 400));
         player = new Player(this);
+        end = new End();
         initboxArray();
 
         //panel.setLayout(null);
@@ -106,10 +109,10 @@ public class Level extends javax.swing.JPanel {
 
                             g.drawImage(enemyImage, i * 20, j * 20, null);
 
-                        } else if(boxArray[i][j].getObject().getType() == ObjectType.Helper){
+                        } else if (boxArray[i][j].getObject().getType() == ObjectType.Helper) {
                             g.drawImage(helperImage, i * 20, j * 20, null);
-                        } else if(boxArray[i][j].getObject().getType() == ObjectType.PathPoint){
-                            g.drawImage(helperImage, i * 20, j * 20, null);
+                        } else if (boxArray[i][j].getObject().getType() == ObjectType.PathPoint) {
+                            g.drawImage(pathPointImage, i * 20, j * 20, null);
                         }
                     }
                 }
@@ -172,6 +175,11 @@ public class Level extends javax.swing.JPanel {
         }
         try {
             helperImage = ImageIO.read(new File("Circle_small.png"));
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        try {
+            pathPointImage = ImageIO.read(new File("Circle_small.png"));
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -360,14 +368,14 @@ public class Level extends javax.swing.JPanel {
     private void readArray(String[][] array) {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length; j++) {
-                if(array[i][j].equals("H")){
+                if (array[i][j].equals("H")) {
                     boxArray[array.length - 1 - i][j].addObject(new Helper(this));
                 }
                 if (array[i][j].equals("W")) {
                     boxArray[array.length - 1 - i][j].addObject(new Wall());
                 }
                 if (array[i][j].equals("E")) {
-                    boxArray[array.length - 1 - i][j].addObject(new End());
+                    boxArray[array.length - 1 - i][j].addObject(end);
                 }
                 if (array[i][j].equals("P")) {
                     boxArray[array.length - 1 - i][j].addObject(player);
@@ -383,27 +391,13 @@ public class Level extends javax.swing.JPanel {
         }
     }
 
-    public void shortestPath() {
-        ArrayList<Box> Unvisited = new ArrayList<>();
-        for (int i = 0; i < boxArray.length; i++) {
-            for (int j = 0; i < boxArray[0].length; j++) {
-                boxArray[i][j].distance = 0;
-                Unvisited.add(boxArray[i][j]);
-            }
-        }
-        Box currentBox = player.getBox();
-        currentBox.distance = Integer.MAX_VALUE;
-        while (true) {
-
-        }
-    }
-
     public Player getPlayer() {
         return player;
     }
 
     public void restart() {
         player = new Player(this);
+        end = new End();
         initboxArray();
         loadLevel();
         repaint();
@@ -411,24 +405,24 @@ public class Level extends javax.swing.JPanel {
     }
 
     public void pathFind() {
+
+        System.out.println("PATHFIND");
         ArrayList<Box> unvisitedList = new ArrayList<>();
         ArrayList<Box> visitedList = new ArrayList<>();
 
-        int distanceto = Integer.MAX_VALUE;
-        for (int i = 0; i < boxArray.length; i++) {
-            for (int j = 0; j < boxArray[0].length; j++) {
-                if (boxArray[i][j].getObject() == null) {
-                    boxArray[i][j].distance = Integer.MAX_VALUE;
-                    //unvisitedList.add(boxArray[i][j]);
+        int maxDistance = Integer.MAX_VALUE;
 
-                }
+        for (int i = 0; i < boxArray.length - 1; i++) {
+            for (int j = 0; j < boxArray[0].length; j++) {
+                boxArray[i][j].distance = Integer.MAX_VALUE;
+
             }
 
         }
 
-        Box sourceBox = player.getBox();
-        sourceBox.distance = 0;
-        unvisitedList.add(sourceBox);
+        Box sourcebox = player.getBox();
+        sourcebox.distance = 0;
+        unvisitedList.add(sourcebox);
 
         while (!unvisitedList.isEmpty()) {
 
@@ -441,18 +435,38 @@ public class Level extends javax.swing.JPanel {
 
         }
 
+        System.out.println("Done pathing");
+        for (int i = 0; i < boxArray.length - 1; i++) {
+            for (int j = 0; j < boxArray[0].length - 1; j++) {
+                if (boxArray[i][j].distance != Integer.MAX_VALUE) {
+                    if (boxArray[i][j].distance < 10) {
+                        System.out.print(boxArray[i][j].distance + " ");
+                    } else {
+                        System.out.print(boxArray[i][j].distance);
+                    }
+                } else {
+                    System.out.print("  ");
+                }
+            }
+            System.out.println("");
+
+        }
+        makePath();
+
     }
 
-    public Box getBoxWithLowestDistance(ArrayList<Box> boxList) {
+    public Box getBoxWithLowestDistance(ArrayList<Box> list) {
 
         int distance = Integer.MAX_VALUE;
 
         Box returnBox = null;
 
-        for (Box box : boxList) {
+        for (Box box : list) {
 
             if (box.distance < distance) {
-                returnBox = box;
+                if (box.walkable()) {
+                    returnBox = box;
+                }
 
             }
 
@@ -466,22 +480,28 @@ public class Level extends javax.swing.JPanel {
         for (Map.Entry<Direction, Box> destinationEntry : box.getBoxMap().entrySet()) {
             if (destinationEntry.getValue() != null) {
 
-                if (destinationEntry.getValue().getObject() == null) {
+                if (destinationEntry.getValue().walkable()) {
+                    if (!visitedList.contains(destinationEntry.getValue())) {
 
-                    int edgeDistance = 1;
-                    int newDistance = box.distance + edgeDistance;
-                    if (destinationEntry.getValue().distance > newDistance) {
-                        destinationEntry.getValue().distance = newDistance;
-                        unvisitedList.add(destinationEntry.getValue());
+                        int edgeDistance = 1;
+                        int newDistance = box.distance + edgeDistance;
+                        if (destinationEntry.getValue().distance > newDistance) {
+                            destinationEntry.getValue().distance = newDistance;
+                            unvisitedList.add(destinationEntry.getValue());
+                        }
                     }
                 }
             }
         }
     }
-    
-    public Box[][] getBoxArray(){
-        
+
+    public Box[][] getBoxArray() {
+
         return boxArray;
+    }
+
+    public void makePath() {
+        end.getBox().makePath();
     }
 
 }
