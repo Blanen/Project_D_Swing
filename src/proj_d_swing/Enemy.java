@@ -22,4 +22,9 @@ public class Enemy extends Movable{
         return ObjectType.Enemy;
     }
     
+    @Override
+    public void getShot(){
+        destroy();
+    }
+    
 }

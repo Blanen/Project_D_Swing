@@ -34,4 +34,8 @@ public abstract class GameObject {
     public void interactWith(GameObject go) {
 
     }
+
+    public void getShot() {
+
+    }
 }

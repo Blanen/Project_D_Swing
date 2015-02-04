@@ -118,5 +118,11 @@ public class Box {
             return gameObject.walkable();
         }
     }
+    
+    public void getShot(){
+        if(gameObject!=null){
+            gameObject.getShot();
+        }
+    }
 
 }

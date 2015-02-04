@@ -28,4 +28,9 @@ public class Wall extends GameObject {
         return false;
     }
     
+    @Override
+    public void getShot(){
+        destroy();
+    }
+    
 }

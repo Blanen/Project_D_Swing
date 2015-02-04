@@ -42,16 +42,9 @@ public class Player extends Movable {
     }
 
     public void shoot() {
-        if (weapon) {
-            if (box.getNeighboor(lastDir) != null) {
-                if (box.getNeighboor(lastDir).getObject() != null) {
-                    if (box.getNeighboor(lastDir).getObject().getType() == ObjectType.Wall) {
-                        box.getNeighboor(lastDir).removeObject();
-                    }
-                }
-
-                weapon = false;
-            }
+        if(weapon){
+            getBox().getNeighboor(lastDir).getShot();
+            weapon =false;
         }
     }
 
