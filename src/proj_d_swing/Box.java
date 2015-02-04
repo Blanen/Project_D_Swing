@@ -56,18 +56,18 @@ public class Box {
     }
 
     public void moveObject(Direction d) {
-        if (gameObject.walkable()) {
+        if (getNeighboor(d).walkable()) {
 
-            if (boxMap.get(d).getObject() == null) {
-                getNeighboor(d).addObject(gameObject);
-                removeObject();
+            getNeighboor(d).interactObjects(gameObject);
+            getNeighboor(d).addObject(gameObject);
+            removeObject();
 
-            } else if (boxMap.get(d).getObject().walkable()) {
-                getNeighboor(d).getObject().interactWith(gameObject);
-                getNeighboor(d).addObject(gameObject);
-                removeObject();
-            }
-
+        }
+    }
+    
+    public void interactObjects(GameObject go){
+        if(gameObject!=null){
+            gameObject.interactWith(go);
         }
     }
 
@@ -90,11 +90,12 @@ public class Box {
         Box box = null;
 
         for (Map.Entry<Direction, Box> boxEntry : boxMap.entrySet()) {
-            if(boxEntry.getValue().distance==this.distance-1){
-                box = boxEntry.getValue();
+            if (boxEntry.getValue() != null) {
+                if (boxEntry.getValue().distance == this.distance - 1) {
+                    box = boxEntry.getValue();
+                }
             }
         }
-        
 
         return box;
 
