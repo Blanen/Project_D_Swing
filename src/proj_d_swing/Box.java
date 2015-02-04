@@ -80,9 +80,40 @@ public class Box {
     public void setVisible(Boolean visible) {
         this.visible = visible;
     }
-    
-    public Boolean getVisible(){
+
+    public Boolean getVisible() {
         return visible;
+    }
+
+    public Box lowestDistanceNeighboor() {
+
+        Box box = null;
+
+        if (distance != 0) {
+            for (Map.Entry<Direction, Box> boxEntry : boxMap.entrySet()) {
+                if (box.equals(null)) {
+                    box = boxEntry.getValue();
+
+                } else {
+                    if (boxEntry.getValue().distance < box.distance) {
+                        box = boxEntry.getValue();
+                    }
+
+                }
+            }
+        } else {
+
+        }
+
+        return box;
+
+    }
+    
+    public void makePath(){
+        addObject(new PathPoint());
+        if(!lowestDistanceNeighboor().equals(null)){
+            lowestDistanceNeighboor().makePath();
+        }
     }
 
 }

@@ -9,13 +9,16 @@ package proj_d_swing;
  *
  * @author Bart
  */
-public enum ObjectType {
-    Wall,
-    Player,
-    Helper,
-    Weapon,
-    End,
-    Enemy,
-    PathPoint
+public class PathPoint extends GameObject {
+
+    @Override
+    public ObjectType getType() {
+        return ObjectType.PathPoint;
+    }
+
+    @Override
+    public void interactWith(GameObject go) {
+        
+    }
     
 }
