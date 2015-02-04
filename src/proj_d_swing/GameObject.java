@@ -13,6 +13,10 @@ public abstract class GameObject {
     
     public abstract ObjectType getType();
     
+    public Boolean walkable(){
+        return true;
+    }
+    
     Box box;
     
    public boolean walkable(){

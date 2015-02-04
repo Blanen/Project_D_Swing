@@ -106,6 +106,10 @@ public class Level extends javax.swing.JPanel {
 
                             g.drawImage(enemyImage, i * 20, j * 20, null);
 
+                        } else if(boxArray[i][j].getObject().getType() == ObjectType.Helper){
+                            g.drawImage(helperImage, i * 20, j * 20, null);
+                        } else if(boxArray[i][j].getObject().getType() == ObjectType.PathPoint){
+                            g.drawImage(helperImage, i * 20, j * 20, null);
                         }
                     }
                 }
@@ -275,7 +279,7 @@ public class Level extends javax.swing.JPanel {
                 {"W", "o", "W", "W", "W", "W", "W", "o", "W", "W", "W", "o", "W", "o", "W", "o", "W", "o", "o", "W"},
                 {"W", "o", "o", "o", "o", "o", "o", "o", "o", "B", "W", "o", "o", "o", "o", "o", "W", "W", "o", "W"},
                 {"W", "o", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "W", "W", "o", "W"},
-                {"W", "o", "o", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "o", "o", "o", "W"},
+                {"W", "H", "o", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "o", "o", "o", "W"},
                 {"W", "W", "o", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "W", "W", "W", "o", "W", "W", "W"},
                 {"W", "o", "o", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "o", "o", "o", "W"},
                 {"W", "o", "W", "o", "o", "o", "o", "o", "o", "o", "o", "W", "W", "W", "W", "W", "o", "W", "o", "W"},
@@ -356,6 +360,9 @@ public class Level extends javax.swing.JPanel {
     private void readArray(String[][] array) {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length; j++) {
+                if(array[i][j].equals("H")){
+                    boxArray[array.length - 1 - i][j].addObject(new Helper(this));
+                }
                 if (array[i][j].equals("W")) {
                     boxArray[array.length - 1 - i][j].addObject(new Wall());
                 }
