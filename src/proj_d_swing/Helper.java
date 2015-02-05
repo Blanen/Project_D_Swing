@@ -28,34 +28,4 @@ public class Helper extends GameObject {
 
     }
 
-    public void addPath(Box[][] array) {
-        Box endBox = findEnd(array);
-        
-        if(endBox!=null){
-            
-            endBox.lowerDistanceNeighboor().makePath();
-            
-        }
-        else{
-            System.out.println("EndBox = null");
-        }
-    }
-
-    private Box findEnd(Box[][] array) {
-
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[0].length; j++) {
-                if (array[i][j].getObject() != null) {
-                    if (array[i][j].getObject().getType().equals(ObjectType.End)) {
-                        return array[i][j];
-                    }
-
-                }
-            }
-
-        }
-        return null;
-
-    }
-
 }

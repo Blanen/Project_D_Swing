@@ -480,15 +480,14 @@ public class Level extends javax.swing.JPanel {
             if (destinationEntry.getValue() != null) {
 
                 if (destinationEntry.getValue().walkable()) {
-                    if (!visitedList.contains(destinationEntry.getValue())) {
 
-                        int edgeDistance = 1;
-                        int newDistance = box.distance + edgeDistance;
-                        if (destinationEntry.getValue().distance > newDistance) {
-                            destinationEntry.getValue().distance = newDistance;
-                            unvisitedList.add(destinationEntry.getValue());
-                        }
+                    int edgeDistance = 1;
+                    int newDistance = box.distance + edgeDistance;
+                    if (destinationEntry.getValue().distance > newDistance) {
+                        destinationEntry.getValue().distance = newDistance;
+                        unvisitedList.add(destinationEntry.getValue());
                     }
+
                 }
             }
         }

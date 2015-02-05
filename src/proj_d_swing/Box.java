@@ -64,9 +64,9 @@ public class Box {
 
         }
     }
-    
-    public void interactObjects(GameObject go){
-        if(gameObject!=null){
+
+    public void interactObjects(GameObject go) {
+        if (gameObject != null) {
             gameObject.interactWith(go);
         }
     }
@@ -87,11 +87,17 @@ public class Box {
 
     public Box lowerDistanceNeighboor() {
 
-        Box box = null;
+        Box box = new Box(0, 0);
+        box.distance = Integer.MAX_VALUE;
 
         for (Map.Entry<Direction, Box> boxEntry : boxMap.entrySet()) {
-            if (boxEntry.getValue() != null) {
-                if (boxEntry.getValue().distance == this.distance - 1) {
+            if (distance != 1) {
+                if (boxEntry.getValue().distance != 0 && boxEntry.getValue().distance < box.distance) {
+                    box = boxEntry.getValue();
+                }
+            }
+            else{
+                if(boxEntry.getValue().distance<box.distance){
                     box = boxEntry.getValue();
                 }
             }
@@ -102,6 +108,8 @@ public class Box {
     }
 
     public void makePath() {
+        
+
         System.out.println(distance);
         if (distance != 0) {
             lowerDistanceNeighboor().makePath();
@@ -118,9 +126,9 @@ public class Box {
             return gameObject.walkable();
         }
     }
-    
-    public void getShot(){
-        if(gameObject!=null){
+
+    public void getShot() {
+        if (gameObject != null) {
             gameObject.getShot();
         }
     }
