@@ -54,7 +54,7 @@ public class Level extends javax.swing.JPanel {
 
         this.setMaximumSize(new Dimension(400, 400));
         player = new Player(this);
-        end = new End();
+        end = new End(this);
         initboxArray();
 
         //panel.setLayout(null);
@@ -143,6 +143,13 @@ public class Level extends javax.swing.JPanel {
                     boxArray[i][j].addNeighboor(Direction.Right, boxArray[i + 1][j]);
                 }
             }
+        }
+        for (int i = 0; i < boxArray.length - 1; i++) {
+            for (int j = 0; j < boxArray[0].length; j++) {
+                boxArray[i][j].distance = Integer.MAX_VALUE;
+
+            }
+
         }
     }
 
@@ -397,7 +404,7 @@ public class Level extends javax.swing.JPanel {
 
     public void restart() {
         player = new Player(this);
-        end = new End();
+        end = new End(this);
         initboxArray();
         loadLevel();
         repaint();
@@ -411,14 +418,6 @@ public class Level extends javax.swing.JPanel {
         ArrayList<Box> visitedList = new ArrayList<>();
 
         int maxDistance = Integer.MAX_VALUE;
-
-        for (int i = 0; i < boxArray.length - 1; i++) {
-            for (int j = 0; j < boxArray[0].length; j++) {
-                boxArray[i][j].distance = Integer.MAX_VALUE;
-
-            }
-
-        }
 
         Box sourcebox = player.getBox();
         sourcebox.distance = 0;

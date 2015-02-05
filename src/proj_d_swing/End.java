@@ -10,8 +10,12 @@ package proj_d_swing;
  * @author Bart
  */
 public class End extends GameObject {
+    
+    Level level;
 
-   
+    public End(Level level){
+        this.level = level;
+    }
 
     @Override
     public ObjectType getType() {
@@ -20,8 +24,7 @@ public class End extends GameObject {
     
     @Override
     public void interactWith(GameObject go){
-         Player player = (Player)go;
-        player.level.LevelUp();
+        level.restart();
     }
     
 }
