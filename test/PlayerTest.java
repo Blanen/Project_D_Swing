@@ -44,7 +44,7 @@ public class PlayerTest {
         level.getBoxArray()[10][10].addObject(player);
         Box box = player.getBox();
         player.setDirection(Direction.Left);
-        player.inputDirection(Direction.Right);
+        player.inputDirection(Direction.Left);
         
         assertEquals(box.getNeighboor(Direction.Left).getObject(), player);
         assertEquals(player.getLastDir(), Direction.Left);

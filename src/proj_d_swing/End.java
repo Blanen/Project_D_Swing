@@ -24,6 +24,7 @@ public class End extends GameObject {
     
     @Override
     public void interactWith(GameObject go){
+        level.addLvl();
         level.restart();
     }
     

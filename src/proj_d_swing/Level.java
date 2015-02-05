@@ -501,5 +501,9 @@ public class Level extends javax.swing.JPanel {
     public void makePath() {
         end.getBox().makePath();
     }
+    
+    public void addLvl(){
+        lvl++;
+    }
 
 }
